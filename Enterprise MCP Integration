@@ -1,0 +1,189 @@
+# Enterprise MCP Integration — Evaluation Notes
+
+## 1. Objective
+
+Evaluate whether a business application can safely expose selected capabilities to agentic AI systems through MCP.
+
+The objective is to create a useful, controlled interaction with real systems rather than merely demonstrate an AI interface.
+
+## 2. Example use case
+
+An enterprise support organization has an existing API for retrieving customer cases and creating service tickets.
+
+It wants an AI assistant that can:
+
+- Look up the current status of an existing ticket.
+- Summarize appropriate case information.
+- Create a new ticket when authorized.
+- Respect the user's permissions.
+- Record the outcome.
+
+An MCP server could expose suitable versions of those operations to compatible agent clients.
+
+## 3. Proposed system boundaries
+
+### Existing enterprise application
+
+Remains the source of truth for customer data and business operations.
+
+### API and authorization layer
+
+Defines which operations an authenticated caller may perform.
+
+### MCP server
+
+Exposes selected application capabilities through tool interfaces.
+
+### AI client
+
+Determines when to invoke tools according to its instructions and available context.
+
+### Operational environment
+
+Provides appropriate deployment, logs, monitoring, failure handling, and security controls.
+
+## 4. Technical questions
+
+### Authentication
+
+How does the application identify the caller?
+
+Are user-specific permissions propagated correctly?
+
+Are tokens managed and rotated securely?
+
+### Authorization
+
+Can the agent invoke only approved operations?
+
+Are read and write permissions separated?
+
+Which actions require human confirmation?
+
+### Data access
+
+What information can the tool return?
+
+Could the response expose confidential information?
+
+Are data minimization and retention requirements satisfied?
+
+### Reliability
+
+What happens when an API is unavailable?
+
+How do tools handle timeouts and retries?
+
+Could a repeated request create duplicate actions?
+
+### Observability
+
+Can developers inspect tool execution?
+
+Are failures visible?
+
+Are relevant audit records preserved?
+
+### Deployment
+
+Where will the server run?
+
+How are secrets configured?
+
+How are updates deployed?
+
+What operational limits and monitoring are required?
+
+## 5. Why consider NitroStack?
+
+NitroStack's development tooling may reduce friction across creating, testing, and hosting MCP-based systems.
+
+NitroStudio supports inspecting and executing MCP server capabilities during development.
+
+NitroCloud provides a documented deployment workflow.
+
+The technical evaluation should compare the platform's actual capabilities with the enterprise's requirements.
+
+## 6. Why not use only an official MCP SDK?
+
+Using a protocol SDK directly may be the right choice for some teams.
+
+The reason to evaluate a fuller platform is the additional development and operational workflow around testing, deployment, and management.
+
+A responsible technical comparison should examine:
+
+- Engineering effort.
+- Authentication requirements.
+- Deployment constraints.
+- Operational visibility.
+- Existing infrastructure.
+- Maintenance responsibilities.
+- Cost and performance.
+- Product maturity.
+
+Do not claim that NitroStack is automatically superior for every use case.
+
+## 7. Database considerations
+
+The enterprise's database choice is distinct from its use of MCP.
+
+MongoDB may be relevant if the customer already uses MongoDB or is undertaking a modernization project.
+
+Other databases and systems can also expose application APIs suitable for MCP tools.
+
+Do not represent migrating to MongoDB as a necessary requirement for using NitroStack.
+
+## 8. Suggested proof of concept
+
+A focused technical pilot could involve:
+
+1. Select one non-sensitive business workflow.
+2. Identify the approved API operation.
+3. Define the MCP tool interface.
+4. Implement authentication and authorization.
+5. Test valid requests and failure cases.
+6. Confirm permission boundaries.
+7. Deploy to an approved environment.
+8. Review logs, outcomes, and operational risks.
+
+A successful proof of concept should demonstrate correct behavior, not merely a successful API call.
+
+## 9. Partner evaluation
+
+For a joint enterprise opportunity, establish:
+
+- The partner's customer access and responsibilities.
+- The customer problem.
+- Existing technical architecture.
+- Relevant NitroStack capabilities.
+- Potential WeKan engineering responsibilities.
+- Security and compliance requirements.
+- Pilot ownership.
+- Commercial questions to resolve later.
+
+## 10. When to escalate to executive leadership
+
+An executive conversation is more justified when a proposal includes a real customer use case, relevant strategic value, identifiable technical ownership, and a plausible evaluation path.
+
+A generic request to learn about MCP should not automatically become a CEO meeting.
+
+## 11. Open questions
+
+- What is the minimum viable integration?
+- What capabilities are verified today?
+- Which implementation tasks belong to each party?
+- What would prove the pilot successful?
+- What could make the opportunity commercially repeatable?
+- What risks would prevent deployment?
+
+## References
+
+https://docs.nitrostack.ai/docs/studio/overview
+
+https://docs.nitrostack.ai/docs/studio/authentication
+
+https://docs.nitrostack.ai/docs/cloud/overview
+
+https://www.wekan.ai/
+
+*These are technical discovery notes for a demonstration, not evidence of an approved enterprise design.*
